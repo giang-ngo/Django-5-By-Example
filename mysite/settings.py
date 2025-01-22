@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'decouple',
 ]
 
 MIDDLEWARE = [
@@ -112,7 +114,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
@@ -122,4 +123,20 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # Sử dụng backend SMTP
+EMAIL_HOST = 'smtp.gmail.com'  # Máy chủ SMTP của Gmail
+EMAIL_PORT = 587  # Cổng sử dụng TLS
+EMAIL_USE_TLS = True  # Bật mã hóa TLS
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')  # Email gửi
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  # App Password của Gmail
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='Your App <django5@gmail.com>')  # Email mặc định
