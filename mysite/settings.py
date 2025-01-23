@@ -30,16 +30,20 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+SITE_ID = 1
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'blog',
     'decouple',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -78,8 +82,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
     }
 }
 
@@ -139,4 +146,5 @@ EMAIL_PORT = 587  # Cổng sử dụng TLS
 EMAIL_USE_TLS = True  # Bật mã hóa TLS
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')  # Email gửi
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  # App Password của Gmail
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='Your App <django5@gmail.com>')  # Email mặc định
+DEFAULT_FROM_EMAIL = config(
+    'DEFAULT_FROM_EMAIL', default='Your App <django5@gmail.com>')  # Email mặc định
