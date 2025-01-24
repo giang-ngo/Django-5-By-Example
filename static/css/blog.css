@@ -1,17 +1,24 @@
-/* blog.css */
-
-/* Cấu trúc chung của trang */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
 }
 
-#content {
+#content{
+    display: flex;
+}
+
+header {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+main {
     width: 70%;
     padding: 20px;
     background-color: white;
@@ -19,125 +26,157 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#sidebar {
+aside {
     width: 25%;
     padding: 20px;
     background-color: #ccc;
-    color: white;
-    font-size: 1.1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#sidebar h2 {
-    font-size: 1.5rem;
+/* Bố cục chung cho content và sidebar */
+body {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
-#sidebar p {
-    font-size: 1rem;
-}
-
-/* Cấu trúc cho tiêu đề và bài viết */
-h1 {
-    font-size: 2rem;
-    color: #333;
-}
-
-h2 {
-    font-size: 1.8rem;
-    margin-top: 0;
+/* Phong cách tiêu đề */
+h2, h3 {
     color: #0056b3;
+    font-weight: bold;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin: 10px 0;
 }
 
 a {
     text-decoration: none;
-    color: inherit;
-}
-
-.date {
-    font-size: 0.9rem;
-    color: #777;
-}
-
-p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #555;
-}
-
-/* Trạng thái khi người dùng hover vào các tiêu đề bài viết */
-h2 a:hover {
-    text-decoration: underline;
-}
-
-/* Phần tóm tắt bài viết */
-/* truncated-text {
-    color: #444;
-    font-size: 1rem;
-} */
-/* Style cho phần phân trang */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    padding: 10px 0;
-    background-color: #f4f4f4;
-}
-
-.step-links {
-    display: flex;
-    align-items: center;
-}
-
-.step-links a {
-    text-decoration: none;
     color: #0056b3;
-    padding: 8px 15px;
-    margin: 0 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-.step-links a:hover {
+a:hover {
+    text-decoration: underline;
+    color: #ffcc00;
+}
+
+
+/* Phong cách chung cho navbar */
+.navbar {
     background-color: #0056b3;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
     color: white;
 }
 
-.step-links .current {
-    margin: 0 10px;
+.navbar .logo a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar .menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 15px;
+}
+
+.navbar .menu li {
+    margin: 0;
+    position: relative;
+}
+
+.navbar .menu li a {
+    color: white;
+    text-decoration: none;
     font-size: 1rem;
-    color: #333;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
 }
 
-/* Style khi không có nút phân trang */
-.step-links .current {
+.navbar .menu li a:hover {
+    color: #004494;
+    background: #ffcc00;
+}
+
+/* Hiển thị trạng thái active */
+.navbar .menu li.selected a {
+    color: #ffcc00;
     font-weight: bold;
+    border-bottom: 2px solid #ffcc00;
 }
 
+/* Phần thông tin người dùng */
+.navbar .user {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar .user form {
+    display: inline-block;
+    margin: 0;
+}
+
+.navbar .user button,.navbar .user a {
+    background-color: #ffcc00;
+    color: #0056b3;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+
+
+.navbar .user a {
+    background-color: #ffc107;
+}
+
+/* Responsive menu cho màn hình nhỏ */
 @media (max-width: 768px) {
-    body {
+    .navbar {
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
+        padding: 10px;
     }
 
-    #content, #sidebar {
-        width: 90%;
-        margin: 10px 0;
-    }
-
-    form {
+    .navbar .menu {
+        flex-direction: column;
         width: 100%;
+        gap: 10px;
     }
 
-    input[type="text"],
-    input[type="email"],
-    textarea {
-        font-size: 0.9rem;
+    .navbar .menu li a {
+        padding: 10px 15px;
     }
 
-    button[type="submit"] {
-        font-size: 0.9rem;
-        padding: 8px 12px;
+    .navbar .user {
+        margin-top: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
     }
 }

@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from decouple import config
 from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -44,7 +43,12 @@ INSTALLED_APPS = [
     'blog',
     'decouple',
     'taggit',
+    'account',
 ]
+
+LOGIN_REDIRECT_URL = 'account:dashboard'
+LOGIN_URL = 'account:login'
+LOGOUT_URL = 'account:logout'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,6 +76,14 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.ScryptPasswordHasher',
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
@@ -126,6 +138,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -148,3 +162,4 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')  # Email gửi
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  # App Password của Gmail
 DEFAULT_FROM_EMAIL = config(
     'DEFAULT_FROM_EMAIL', default='Your App <django5@gmail.com>')  # Email mặc định
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
